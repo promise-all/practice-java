@@ -4,12 +4,26 @@ import java.lang.invoke.MethodHandles;
 import java.lang.invoke.VarHandle;
 import java.util.Arrays;
 
+/**
+ * 自定义 ThreadLocal
+ */
 public class MyThreadLocal<T> {
+    /**
+     * 下一个 MyThreadLocal 的 index
+     * 每个 ThreadLocal 独有一个 index
+     */
     private static int nextIndex = 0;
+    /**
+     * 变量句柄
+     * 用于提供以 volatile、synchronized、CAS 等方式操作变量的能力
+     */
     private static VarHandle nextIndexHandle;
-
+    /**
+     * MyThreadLocal 的索引，用于唯一标志一个 MyThreadLocal
+     */
     private int index;
 
+    // 用于获取变量句柄
     static {
         try {
             nextIndexHandle = MethodHandles.lookup().findStaticVarHandle(MyThreadLocal.class, "nextIndex", int.class);
@@ -73,8 +87,14 @@ public class MyThreadLocal<T> {
         }
     }
 
+    /**
+     * 变量容器
+     */
     public static class LocalContainer {
         private Object[] objects = new Object[2];
+        /**
+         * 默认容量为 2
+         */
         private int capacity = 2;
 
         private boolean set(int index, Object newObj) {
@@ -98,6 +118,9 @@ public class MyThreadLocal<T> {
             Arrays.fill(objects, 0, objects.length, null);
         }
 
+        /**
+         * 数组扩容
+         */
         private boolean grow(int targetCapacity) {
             if (targetCapacity == Integer.MAX_VALUE >> 1) {
                 return false;
