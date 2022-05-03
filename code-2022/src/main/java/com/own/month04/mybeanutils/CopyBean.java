@@ -59,69 +59,6 @@ public class CopyBean {
     }
 
     public static void main(String[] args) {
-        A a = new A();
-        a.setA("aaa");
-        a.setB("aaa");
-        B b = new B();
-        shallowCopy(a,b,null);
-        System.out.println(b);
     }
 }
 
-class A {
-    private String a;
-    private String b;
-
-    public String getA() {
-        return a;
-    }
-
-    public void setA(String a) {
-        this.a = a;
-    }
-
-    public String getB() {
-        return b;
-    }
-
-    public void setB(String b) {
-        this.b = b;
-    }
-
-    @Override
-    public String toString() {
-        return "A{" +
-                "a='" + a + '\'' +
-                ", b='" + b + '\'' +
-                '}';
-    }
-}
-
-class B {
-    private String aa;
-    private String b;
-
-    public String getAa() {
-        return aa;
-    }
-
-    public void setAa(String aa) {
-        this.aa = aa;
-    }
-
-    public String getB() {
-        return b;
-    }
-
-    public void setB(String b) {
-        this.b = b;
-    }
-
-    @Override
-    public String toString() {
-        return "B{" +
-                "aa='" + aa + '\'' +
-                ", b='" + b + '\'' +
-                '}';
-    }
-}
